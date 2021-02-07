@@ -66,6 +66,9 @@ Walmart has implemented various things to fight bots. I recommend running the bo
 ## Flag Arguments
 
 `-u` or `--userconfig` Runs with user information from `user_config.json`
+
 `-t` or `--test` Runs in Test Mode with additinoal logs and will use invalid security code and not place the order.
+
 `-d` or `--devmode` Runs in developer mode with additional logs.
+
 `-a [number]` or `--attempts [number]` Will only run the script n number of times. Set to `-1` to run infinite times. Warning: I have no idea what bugs/issues this might cause and advise you actively monitor the console.
