@@ -50,7 +50,7 @@ Note: the "code" field is your CC security code.
 #### As the bot is running:
 Monitor the terminal output to see what's going on. You may need to restart if necessary.
 
-Warning: If the purchase fails after adding to cart, then runs again it will add more to cart.
+Warning: If the order fails after adding to cart, the bot will stop but you will need to remove items from the cart.
 
 ## Flag Arguments
 

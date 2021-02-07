@@ -21,6 +21,7 @@ const buyBot = async (userInfo) => {
     } = args;
     let isComplete = false;
     let attempts = 0;
+    let addedToCartComplete = false;
 
     if (isTestMode) console.log('IN TEST MODE');
     if (isDevMode) console.log('IN DEV MODE');
@@ -41,6 +42,7 @@ const buyBot = async (userInfo) => {
 
             // Add item to cart
             await reTryClick(driver, By.className(SELECTORS.CLASS.ADD_TO_CART_BUTTON));
+            addedToCartComplete = true;
             console.log('Item is in stock');
 
             await driver.sleep(3000)
@@ -92,8 +94,12 @@ const buyBot = async (userInfo) => {
             if (attempts === maxAttempts) {
                 isComplete = true;
                 console.log(`Reached max number of attempts (${maxAttempts}), shutting down...`);
+            } else if (addedToCartComplete) {
+                isComplete = true;
+                console.log('ERROR - Added to cart, but could not complete order.');
             } else {
-                console.log('Error - Bot restarting')
+                console.log('ERROR - Bot restarting');
+
                 continue
             }
         }
