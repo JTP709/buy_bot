@@ -49,10 +49,10 @@ Monitor the terminal output to see what's going on. You may need to restart if n
 }
 ```
 Note: the "code" field is your CC security code.
-
-3. Type `buy_bot -u -t` in your terminal.
-4. Let it do it's thing - the system output in the terminal will let you know what's going on, but it will not place the order. Look for 'IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED' to verify the everything works. Make sure you give it an item that is in stock. It will also use a `000` security code for added safety.
-5. Now for the real things - type `buy_bot -u` and let it do it's thing.
+3. You need to reinstall the bot so it pulls in the new config info, type `npm install -g` or `yarn install -g`.
+4. Type `buy_bot -u -t` in your terminal.
+5. Let it do it's thing - the system output in the terminal will let you know what's going on, but it will not place the order. Look for 'IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED' to verify the everything works. Make sure you give it an item that is in stock. It will also use a `000` security code for added safety.
+6. Now for the real things - type `buy_bot -u` and let it do it's thing.
 
 ### As the bot is running:
 Monitor the terminal output to see what's going on. You may need to restart if necessary.

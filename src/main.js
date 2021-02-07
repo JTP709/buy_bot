@@ -1,4 +1,5 @@
 const {bestBuyBot, walmartBot, gameStopBot, amazonBot } = require ('./bots');
+const sanitizeSensitiveData = require('./helpers/sanitizeSensitiveData');
 const { questionBuilder, rl } = require('./helpers/questionBuilder');
 const args = require('./config/args');
 const defaultUserInfo = require('../user_config.json');
@@ -19,6 +20,8 @@ const main = async () => {
     }
 
     rl.close();
+
+    console.table(sanitizeSensitiveData(userInfo));
 
     if (userInfo.item.includes('bestbuy.com')) {
         bestBuyBot(userInfo);
