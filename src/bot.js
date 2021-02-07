@@ -1,10 +1,11 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
+const firefox = require('selenium-webdriver/firefox');
 const SELECTORS = require('./selectors');
 const reTryClick = require('./helpers/retryClick');
 
 const cartPage = 'https://www.bestbuy.com/cart';
 
-async function buyBot(userInfo, options) {
+const buyBot = async (userInfo, args) => {
     console.log('Bot starting...')
     if (Object.keys(userInfo).length < 4) {
         console.log('Incomplete User Info - check your inputs or config and try again');
@@ -12,15 +13,18 @@ async function buyBot(userInfo, options) {
     }
 
     const { item, email, password, code } = userInfo;
-    const { attempts: maxAttempts, test: isTestMode, devmode: isDevMode } = options;
+    const { attempts: maxAttempts, test: isTestMode, devmode: isDevMode } = args;
     let isComplete = false;
     let attempts = 0;
 
     if (isTestMode) console.log('IN TEST MODE');
     if (isDevMode) console.log('IN DEV MODE');
-    if (maxAttempts > -1) console.log(`Will attempt ${maxAttempts} times.`)
+    if (maxAttempts > -1) console.log(`Will attempt ${maxAttempts} times.`);
 
+    const options = new firefox.Options();
+    if (!isDevMode) options.addArguments('-headless');
     const driver = await new Builder().forBrowser('firefox')
+        .setFirefoxOptions(options)
         .build()
 
     while (!isComplete) {
@@ -64,10 +68,10 @@ async function buyBot(userInfo, options) {
 
             // Complete Purchase
             await driver.wait(until.elementLocated(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)), 10 * 1000);
-            await driver.findElement(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)).sendKeys(code);
+            await driver.findElement(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)).sendKeys(!isTestMode ? code : '000');
             
             if (isTestMode) {
-                console.log('IN TEST MODE - ORDER NOT PLACED')
+                console.log('IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED')
             } else {
                 await reTryClick(By.css(SELECTORS.CSS.PLACE_YOUR_ORDER))
             }
