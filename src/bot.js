@@ -13,7 +13,11 @@ const buyBot = async (userInfo, args) => {
     }
 
     const { item, email, password, code } = userInfo;
-    const { attempts: maxAttempts, test: isTestMode, devmode: isDevMode } = args;
+    const {
+        attempts: maxAttempts,
+        test: isTestMode,
+        devmode: isDevMode
+    } = args;
     let isComplete = false;
     let attempts = 0;
 
@@ -70,15 +74,15 @@ const buyBot = async (userInfo, args) => {
             await driver.wait(until.elementLocated(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)), 10 * 1000);
             await driver.findElement(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)).sendKeys(!isTestMode ? code : '000');
             
-            if (isTestMode) {
+            if (isTestMode || isDevMode) {
                 console.log('IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED')
             } else {
                 await reTryClick(By.css(SELECTORS.CSS.PLACE_YOUR_ORDER))
+                console.log('Order complete, shutting down...');
             }
 
             if (isDevMode) await driver.sleep(10000);
 
-            console.log('Order complete, shutting down...');
             isComplete = true;
         } catch(e) {
             console.error(e)

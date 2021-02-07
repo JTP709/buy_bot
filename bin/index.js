@@ -13,10 +13,10 @@ const main = async () => {
     }
 
     if (!args.userconfig) {
-        await questionBuilder('What do you want to buy (input full Best Buy url)? ', 'item', userInfo);
-        await questionBuilder('What is your Best Buy account email? ', 'email', userInfo);
-        await questionBuilder('What is your Best Buy account password?', 'password', userInfo);
-        await questionBuilder('What is your CC security code? ', 'code', userInfo);
+        await questionBuilder('What do you want to buy (input full Best Buy url)?\n', 'item', userInfo);
+        await questionBuilder('What is your Best Buy account email?\n', 'email', userInfo);
+        await questionBuilder('What is your Best Buy account password?\n', 'password', userInfo);
+        await questionBuilder('What is your CC security code?\n', 'code', userInfo);
     }
 
     rl.close();
