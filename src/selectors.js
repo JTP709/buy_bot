@@ -1,4 +1,4 @@
-const SELECTORS = {
+const BEST_BUY = {
     CLASS: {
         ADD_TO_CART_BUTTON: 'add-to-cart-button',
         ADDED_TO_CART_MODAL: 'added-to-cart',
@@ -17,4 +17,22 @@ const SELECTORS = {
     }
 };
 
-module.exports = SELECTORS;
+const WALMART = {
+    CLASS: {},
+    NAME: {},
+    ID: {},
+    CSS: {},
+};
+
+const GAMESTOP = {
+    CLASS: {},
+    NAME: {},
+    ID: {},
+    CSS: {},
+};
+
+module.exports = {
+    BEST_BUY,
+    WALMART,
+    GAMESTOP
+};

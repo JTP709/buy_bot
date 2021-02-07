@@ -4,12 +4,12 @@ const args = require('../config/args');
 const reTryClick = async (driver, selector, tries = 10) => {
     if (args.devmode) console.log('retryClick', { driver, selector, tries })
     let isComplete = false;
-    let attempts = 1;
+    let attempts = 0;
 
     while (!isComplete) {
         try {
-            if (args.devmode) console.log(`Click Attempt ${attempts}`)
             attempts += 1;
+            if (args.devmode) console.log(`Click Attempt ${attempts}`)
             await driver.wait(until.elementLocated(selector));
             await driver.findElement(selector).click();
             isComplete = true;
