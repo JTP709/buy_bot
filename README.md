@@ -3,7 +3,7 @@
 ## Prepare
 Make sure you have your default credit card set up as well as a default shipping address. This bot will not set shipping location, delivery times, or change payment options.
 
-This currently only works for BestBuy.com
+This currently only works for BestBuy.com or Walmart.com.
 
 This bot currently only works using the Firefox browser.
 
@@ -17,6 +17,8 @@ Yarn: https://yarnpkg.com/
 The bot will press the "Place Order" button, but won't be able to verify if the order was completed.
 
 If it can successfully select the button, it will assume the order was complete and shut down.
+
+The bot will detect what retailer you're using (currently only support for Best Buy or Walmart).
 
 ### To Install
 From your terminal:
@@ -52,10 +54,13 @@ Note: the "code" field is your CC security code.
 4. Let it do it's thing - the system output in the terminal will let you know what's going on, but it will not place the order. Look for 'IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED' to verify the everything works. Make sure you give it an item that is in stock. It will also use a `000` security code for added safety.
 5. Now for the real things - type `buy_bot -u` and let it do it's thing.
 
-#### As the bot is running:
+### As the bot is running:
 Monitor the terminal output to see what's going on. You may need to restart if necessary.
 
 Warning: If the order fails after adding to cart, the bot will stop but you will need to remove items from the cart.
+
+### For Walmart Items
+Walmart has implemented various things to fight bots. I recommend running the bot in Dev mode so it runs in a browser. This will allow you to click captchas and other changes to the checkout flow as necessary.
 
 ## Flag Arguments
 
