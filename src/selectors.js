@@ -34,10 +34,24 @@ const WALMART = {
 };
 
 const GAMESTOP = {
+
+};
+
+const AMAZON = {
+    ID: {
+        BUY_NOW_BUTTON: 'buy-now-button',
+        SECURITY_CODE_INPUT: 'spc-gcpromoinput',
+    },
+    NAME: {
+        EMAIL_INPUT: 'email',
+        PASSWORD_INPUT: 'password',
+        PLACE_YOUR_ORDER_BUTTON: 'placeYourOrder1',
+    },
 };
 
 module.exports = {
     BEST_BUY,
     WALMART,
-    GAMESTOP
+    GAMESTOP,
+    AMAZON
 };

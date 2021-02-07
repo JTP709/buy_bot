@@ -2,7 +2,7 @@ const { until } = require('selenium-webdriver');
 const args = require('../config/args');
 
 const reTryClick = async (driver, selector, tries = 10) => {
-    if (args.devmode) console.log('retryClick', { driver, selector, tries })
+    // if (args.devmode) console.log('retryClick', { driver, selector, tries })
     let isComplete = false;
     let attempts = 0;
 

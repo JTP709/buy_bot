@@ -3,7 +3,7 @@
 ## Prepare
 Make sure you have your default credit card set up as well as a default shipping address. This bot will not set shipping location, delivery times, or change payment options.
 
-This currently only works for BestBuy.com or Walmart.com.
+This currently only works for BestBuy.com, Walmart.com, or Amazon.com.
 
 This bot currently only works using the Firefox browser.
 
@@ -18,7 +18,7 @@ The bot will press the "Place Order" button, but won't be able to verify if the 
 
 If it can successfully select the button, it will assume the order was complete and shut down.
 
-The bot will detect what retailer you're using (currently only support for Best Buy or Walmart).
+The bot will detect what retailer you're using.
 
 ### To Install
 From your terminal:
@@ -67,4 +67,4 @@ Walmart has implemented various things to fight bots. I recommend running the bo
 `-u` or `--userconfig` Runs with user information from `user_config.json`
 `-t` or `--test` Runs in Test Mode with additinoal logs and will use invalid security code and not place the order.
 `-d` or `--devmode` Runs in developer mode with additional logs.
-`-a [number]` or `--attempts [number]` Will only run the script n number of times.
+`-a [number]` or `--attempts [number]` Will only run the script n number of times. Set to `-1` to run infinite times. Warning: I have no idea what bugs/issues this might cause and advise you actively monitor the console.
