@@ -1,48 +1,19 @@
 const {Builder, By, Key, until} = require('selenium-webdriver');
+const SELECTORS = require('./selectors');
+const reTryClick = require('./helpers/retryClick');
 
 const cartPage = 'https://www.bestbuy.com/cart';
-const SELECTORS = {
-    CLASS: {
-        ADD_TO_CART_BUTTON: By.className('add-to-cart-button'),
-        ADDED_TO_CART_MODAL: By.className('added-to-cart'),
-        CHECKOUT_BUTTON: By.className('btn btn-lg btn-block btn-primary'),
-        SIGN_IN_PAGE_HEADER: By.className('cia-section-title c-section-title heading-5 v-fw-regular'),
-    },
-    NAME: {
-        EMAIL_INPUT: By.name('fld-e'),
-        PASSWORD_INUPT: By.name('fld-p1')
-    },
-    ID: {
-        SECURITY_CODE_INPUT: By.id('credit-card-cvv'),
-    }
-};
-
-const reTryClick = async (driver, selector, tries = 5) => {
-    let wasClicked = false;
-    let attempts = 0;
-
-    while (!wasClicked) {
-        try {
-            attempts += 1;
-            await driver.findElement(selector).click();
-            wasClicked = true
-        } catch {
-            if (attempts < tries ) continue
-            console.log('Could not click on button');
-        }
-    }
-}
 
 async function buyBot(userInfo, options) {
+    if (Object.keys(userInfo).length < 4) {
+        console.log('Incomplete User Info');
+        return;
+    }
+
     const { item, email, password, code } = userInfo;
     const { maxAttempts, test: isTestMode, devmode: isDevMode } = options;
     let isComplete = false;
     let attempts = 0;
-
-    if (isDevMode) {
-        console.log('User Input: ', { ...userInfo });
-        console.log('CLI Args: ', { ...options });
-    }
 
     const driver = await new Builder().forBrowser('firefox')
         .build()
@@ -55,7 +26,7 @@ async function buyBot(userInfo, options) {
             console.log('Navigated to item page');
 
             // Add item to cart
-            await reTryClick(driver, SELECTORS.CLASS.ADD_TO_CART_BUTTON);
+            await reTryClick(driver, By.className(SELECTORS.CLASS.ADD_TO_CART_BUTTON));
             console.log('Item is in stock');
 
             await driver.sleep(3000)
@@ -63,7 +34,7 @@ async function buyBot(userInfo, options) {
 
             if (currentLocation !== cartPage) {
                 // Wait until Added to Cart Modal is visible
-                await driver.wait(until.elementLocated(SELECTORS.CLASS.ADDED_TO_CART_MODAL), 10 * 1000);
+                await driver.wait(until.elementLocated(By.className(SELECTORS.CLASS.ADDED_TO_CART_MODAL)), 10 * 1000);
                 console.log('Added to Cart');
                 
                 // Navigate to /cart page
@@ -73,22 +44,22 @@ async function buyBot(userInfo, options) {
             console.log('Navigated to Cart Page');
 
             // Click Checkout
-            await reTryClick(driver, SELECTORS.CLASS.CHECKOUT_BUTTON);
+            await reTryClick(driver, By.className(SELECTORS.CLASS.CHECKOUT_BUTTON));
             console.log('Beginning Checkout');
 
             // Wait until Checkout Page has Loaded
-            await driver.wait(until.elementLocated(SELECTORS.CLASS.SIGN_IN_PAGE_HEADER), 10 * 1000);
+            await driver.wait(until.elementLocated(By.className(SELECTORS.CLASS.SIGN_IN_PAGE_HEADER)), 10 * 1000);
             console.log('Navigated to Checkout Page');
 
             // Signin
-            await driver.wait(until.elementLocated(SELECTORS.CLASS.SIGN_IN_PAGE_HEADER), 10 * 1000);
-            await driver.findElement(SELECTORS.NAME.EMAIL_INPUT).sendKeys(email);
-            await driver.findElement(SELECTORS.NAME.PASSWORD_INUPT).sendKeys(password, Key.RETURN);
+            await driver.wait(until.elementLocated(By.className(SELECTORS.CLASS.SIGN_IN_PAGE_HEADER)), 10 * 1000);
+            await driver.findElement(By.name(SELECTORS.NAME.EMAIL_INPUT)).sendKeys(email);
+            await driver.findElement(By.name(SELECTORS.NAME.PASSWORD_INUPT)).sendKeys(password, Key.RETURN);
             console.log('Sign In Complete');
 
             // Complete Purchase
-            await driver.wait(until.elementLocated(SELECTORS.ID.SECURITY_CODE_INPUT), 10 * 1000);
-            await driver.findElement(SELECTORS.ID.SECURITY_CODE_INPUT).sendKeys(code);
+            await driver.wait(until.elementLocated(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)), 10 * 1000);
+            await driver.findElement(By.id(SELECTORS.ID.SECURITY_CODE_INPUT)).sendKeys(code);
             
             if (!isTestMode) {
 
