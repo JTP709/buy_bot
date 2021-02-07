@@ -5,12 +5,12 @@ const { questionBuilder, rl } = require('../src/helpers/questionBuilder');
 const defaultUserInfo = require('../user_config.json');
 
 const main = async () => {
-    if (args.isDevMode) {
+    const userInfo = (args.userconfig && defaultUserInfo) ? defaultUserInfo : {};
+
+    if (args.devmode) {
         console.log('User Input: ', { ...userInfo });
         console.log('CLI Args: ', { ...args });
     }
-
-    const userInfo = (args.userconfig && defaultUserInfo) ? defaultUserInfo : {};
 
     if (!args.userconfig) {
         await questionBuilder('What do you want to buy (input full Best Buy url)? ', 'item', userInfo);
