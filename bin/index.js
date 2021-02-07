@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const buyBot = require('../src/bot');
+const buyBot = require('../src/bots/bestBuyBot');
 const args = require('../src/config/args');
 const { questionBuilder, rl } = require('../src/helpers/questionBuilder');
 const defaultUserInfo = require('../user_config.json');
@@ -20,7 +20,7 @@ const main = async () => {
     }
 
     rl.close();
-    buyBot(userInfo, args);
+    buyBot(userInfo);
 }
 
 main();

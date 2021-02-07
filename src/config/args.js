@@ -28,7 +28,7 @@ const args = yargs
     .option(options)
     .default({
         test: false,
-        attempts: -1,
+        attempts: 3,
         devmode: false,
         userconfig: false,
     })

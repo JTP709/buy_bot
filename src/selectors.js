@@ -13,7 +13,7 @@ const SELECTORS = {
         SECURITY_CODE_INPUT: 'credit-card-cvv',
     },
     CSS: {
-        PLACE_YOUR_ORDER: '[data-track="Place your Order - Contact Card"]',
+        PLACE_YOUR_ORDER: "button[data-track='Place your Order - Contact Card']",
     }
 };
 
