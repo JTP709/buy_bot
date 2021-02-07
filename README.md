@@ -50,6 +50,8 @@ Note: the "code" field is your CC security code.
 #### As the bot is running:
 Monitor the terminal output to see what's going on. You may need to restart if necessary.
 
+Warning: If the purchase fails after adding to cart, then runs again it will add more to cart.
+
 ## Flag Arguments
 
 `-u` or `--userconfig` Runs with user information from `user_config.json`
