@@ -1,6 +1,6 @@
 {
   "name": "buy_bot",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "Bot to purchase an item before scalpers do.",
   "main": "./bin/index.js",
   "bin": {

@@ -93,7 +93,7 @@ const walmartBot = async (userInfo) => {
         }
     }
 
-    // await driver.quit();
+    await driver.quit();
 };
 
 module.exports = walmartBot;
