@@ -58,8 +58,15 @@ const amazonBot = async (userInfo) => {
             if (isTestMode) {
                 console.log('IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED')
             } else {
+                await driver.sleep(6000)
                 await retryClick(driver, By.name(AMAZON.NAME.PLACE_YOUR_ORDER_BUTTON));
-                console.log('Order complete, shutting down...');
+                await driver.sleep(10000);
+                if (!(await driver.getCurrentUrl()).includes('thankyou')) {
+                    isComplete = true;
+                    throw new Error('Did not arrive at Order Confirmation Page, check your account order history.')
+                } else {
+                    console.log('Order complete, shutting down...');
+                }
             }
 
             if (isDevMode) await driver.sleep(10000);
