@@ -57,14 +57,17 @@ const walmartBot = async (userInfo) => {
 
             // Confirm Delivery
             await retryClick(driver, By.css(WALMART.CSS.FULFILLMENT_CONTINUE_BUTTON));
+            console.log('Confirmed Fulfillment Option');
 
             // Confirm Address
             await retryClick(driver, By.css(WALMART.CSS.ADDRESS_CONTINUE_BUTTON));
+            console.log('Confirmed Addres');
 
             // Confirm Payment
             await driver.wait(until.elementLocated(By.name(WALMART.NAME.SECURITY_CODE_INPUT_ID)), 10 * 1000);
             await driver.findElement(By.name(WALMART.NAME.SECURITY_CODE_INPUT_ID)).sendKeys(!isTestMode ? code : '0000');
             await retryClick(driver, By.css(WALMART.CSS.REVIEW_ORDER_BUTTON));
+            console.log('Confirmed Payment Method');
 
             // Complete Purchase
             if (isTestMode) {
