@@ -18,17 +18,22 @@ const BEST_BUY = {
 };
 
 const WALMART = {
-    CLASS: {},
-    NAME: {},
-    ID: {},
-    CSS: {},
+    CSS: {
+        ADD_TO_CART_BUTTON: 'button[data-tl-id="ProductPrimaryCTA-cta_add_to_cart_button"]',
+        CHECKOUT_BUTTON: 'button[data-tl-id="IPPacCheckOutBtnBottom"]',
+        FULFILLMENT_CONTINUE_BUTTON: 'button[data-automation-id="fulfillment-continue"]',
+        ADDRESS_CONTINUE_BUTTON: 'button[data-automation-id="address-book-action-buttons-on-continue"]',
+        REVIEW_ORDER_BUTTON: 'button[data-automation-id="submit-payment-cc"]',
+        PLACE_ORDER_BUTTON: 'button[data-automation-id="summary-place-holder"]',
+    },
+    NAME: {
+        EMAIL_INPUT_NAME: 'email',
+        PASSWORD_INPUT_NAME: 'password',
+        SECURITY_CODE_INPUT_ID: 'cvv',
+    },
 };
 
 const GAMESTOP = {
-    CLASS: {},
-    NAME: {},
-    ID: {},
-    CSS: {},
 };
 
 module.exports = {

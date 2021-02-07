@@ -28,7 +28,7 @@ const buyBot = async (userInfo) => {
     if (maxAttempts > -1) console.log(`Will attempt ${maxAttempts} times.`);
 
     const options = new firefox.Options();
-    if (isDevMode) options.addArguments('-headless');
+    if (!isDevMode) options.addArguments('-headless');
     const driver = await new Builder().forBrowser('firefox')
         .setFirefoxOptions(options)
         .build()

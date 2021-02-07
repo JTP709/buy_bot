@@ -2,7 +2,7 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const args = require("../config/args");
 const firefox = require('selenium-webdriver/firefox');
 const { WALMART } = require('../selectors');
-const reTryClick = require('../helpers/retryClick');
+const retryClick = require('../helpers/retryClick');
 
 const walmartBot = async (userInfo) => {
     console.log('Bot starting...');
@@ -26,7 +26,7 @@ const walmartBot = async (userInfo) => {
     if (maxAttempts > -1) console.log(`Will attempt ${maxAttempts} times.`);
 
     const options = new firefox.Options();
-    if (isDevMode) options.addArguments('-headless');
+    if (!isDevMode) options.addArguments('-headless');
     const driver = await new Builder().forBrowser('firefox')
         .setFirefoxOptions(options)
         .build()
@@ -35,30 +35,42 @@ const walmartBot = async (userInfo) => {
         try {
             attempts += 1;
             // Navigate to item page
+            await driver.get(item);
             console.log(`Navigated to ${item}`);
 
             // Add item to cart
+            await retryClick(driver, By.css(WALMART.CSS.ADD_TO_CART_BUTTON));
             addedToCartComplete = true;
             console.log('Item is in stock');
 
-            // Navigate to cart page
-            console.log('Added to Cart');
-            console.log(`Navigated to ${cartPage}`);
-
             // Click Checkout
+            await driver.wait(until.elementLocated(By.css(WALMART.CSS.CHECKOUT_BUTTON)));
+            console.log('Added to Cart');
+            await retryClick(driver, By.css(WALMART.CSS.CHECKOUT_BUTTON))
             console.log('Beginning Checkout');
 
-            console.log('Navigated to Checkout Page');
-
             // Sign in
-            console.log('Completed Sign In Page');
+            await driver.wait(until.elementLocated(By.name(WALMART.NAME.EMAIL_INPUT_NAME)), 10 * 1000);
+            await driver.findElement(By.name(WALMART.NAME.EMAIL_INPUT_NAME)).sendKeys(email);
+            await driver.findElement(By.name(WALMART.NAME.PASSWORD_INPUT_NAME)).sendKeys(password, Key.RETURN);
+            console.log('Completed Sign In');
+
+            // Confirm Delivery
+            await retryClick(driver, By.css(WALMART.CSS.FULFILLMENT_CONTINUE_BUTTON));
+
+            // Confirm Address
+            await retryClick(driver, By.css(WALMART.CSS.ADDRESS_CONTINUE_BUTTON));
+
+            // Confirm Payment
+            await driver.wait(until.elementLocated(By.name(WALMART.NAME.SECURITY_CODE_INPUT_ID)), 10 * 1000);
+            await driver.findElement(By.name(WALMART.NAME.SECURITY_CODE_INPUT_ID)).sendKeys(!isTestMode ? code : '0000');
+            await retryClick(driver, By.css(WALMART.CSS.REVIEW_ORDER_BUTTON));
 
             // Complete Purchase
-
             if (isTestMode) {
                 console.log('IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED')
             } else {
-                // await reTryClick(driver, By.css(BEST_BUY.CSS.PLACE_YOUR_ORDER));
+                await retryClick(driver, By.css(WALMART.CSS.PLACE_ORDER_BUTTON));
                 console.log('Order complete, shutting down...');
             }
 
@@ -80,6 +92,8 @@ const walmartBot = async (userInfo) => {
             }
         }
     }
-}
+
+    // await driver.quit();
+};
 
 module.exports = walmartBot;
