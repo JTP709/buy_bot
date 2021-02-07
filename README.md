@@ -7,6 +7,11 @@ This currently only works for BestBuy.com
 
 This bot currently only works using the Firefox browser.
 
+You'll also need `node.js` installed, and `yarn` package manager is recommended.
+
+Node instructions: https://nodejs.org/en/
+Yarn: https://yarnpkg.com/
+
 ## Instructions
 
 The bot will press the "Place Order" button, but won't be able to verify if the order was completed.
@@ -17,7 +22,7 @@ If it can successfully select the button, it will assume the order was complete 
 From your terminal:
 1. Download or use `git clone`
 2. Change directory to your the project directory.
-3. Type `node install -g` in your terminal.
+3. Type `node install -g` or `yarn install -g` in your terminal.
 
 ### To Run
 There are two ways to input user data: Command Line inputs, or saving the data in the `user_config.json`
