@@ -42,17 +42,25 @@ const buyBot = async (userInfo) => {
 
             // Add item to cart
             await reTryClick(driver, By.className(BEST_BUY.CLASS.ADD_TO_CART_BUTTON));
-            if (await driver.wait(until.elementLocated(By.className(BEST_BUY.CSS.WAIT_BUTTON)), 1000)) {
+            await driver.sleep(1000);
+            const hasWaitOverlay = await driver.findElements(By.css(BEST_BUY.CSS.WAIT_BUTTON));
+            if (hasWaitOverlay) {
                 let isWaiting = true;
+                let iteration = 0;
                 console.log('Please wait... Best Buy is enforcing a wait timer.')
                 while (isWaiting) {
                     try {
-                        await reTryClick(driver, By.className(BEST_BUY.CLASS.ADD_TO_CART_BUTTON));
-                        isWaiting = false;
+                        await driver.findElements(By.css(BEST_BUY.CSS.WAIT_BUTTON));
+                        iteration += 1
+                        if (iteration % 700 === 0) console.log('Waiting...')
+                        if (iteration % 1000 === 0) console.log('Still waiting...');
+                        if (iteration % 2300 === 0) console.log('Yup, Still waiting...');
+
                     } catch {
-                        continue
+                        isWaiting = false;
                     }
                 }
+                await reTryClick(driver, By.className(BEST_BUY.CLASS.ADD_TO_CART_BUTTON));
             }
 
             addedToCartComplete = true;
