@@ -42,6 +42,19 @@ const buyBot = async (userInfo) => {
 
             // Add item to cart
             await reTryClick(driver, By.className(BEST_BUY.CLASS.ADD_TO_CART_BUTTON));
+            if (await driver.wait(until.elementLocated(By.className(BEST_BUY.CSS.WAIT_BUTTON)), 1000)) {
+                let isWaiting = true;
+                console.log('Please wait... Best Buy is enforcing a wait timer.')
+                while (isWaiting) {
+                    try {
+                        await reTryClick(driver, By.className(BEST_BUY.CLASS.ADD_TO_CART_BUTTON));
+                        isWaiting = false;
+                    } catch {
+                        continue
+                    }
+                }
+            }
+
             addedToCartComplete = true;
             console.log('Item is in stock');
 

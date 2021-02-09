@@ -10,6 +10,7 @@ This bot currently only works using the Firefox browser.
 You'll also need `node.js` installed, and `yarn` package manager is recommended.
 
 Node instructions: https://nodejs.org/en/
+
 Yarn: https://yarnpkg.com/
 
 ## Instructions
@@ -32,8 +33,10 @@ There are two ways to input user data: Command Line inputs, or saving the data i
 #### To run with command line inputs:
 1. Type `buy_bot -t` in the terminal to run in TEST mode.
 2. Answer the questons.
-3. Let it do it's thing - the system output in the terminal will let you know what's going on, but it will not place the order. Look for 'IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED' to verify the everything works. Make sure you give it an item that is in stock. It will also use a `000` security code for added safety.
-4.Now for the real things - type `buy_bot`, answer the questions, and let it do it's thing.
+3. Let it do it's thing - the system output in the terminal will let you know what's going on, but it will not place the order. 
+Look for 'IN TEST MODE - OPERATION COMPLETE - ORDER NOT PLACED' to verify the everything works. Make sure you give it an item that is in stock. 
+It will also use a `000` security code for added safety.
+4. Now for the real things - type `buy_bot`, answer the questions, and let it do it's thing.
 
 Monitor the terminal output to see what's going on. You may need to restart if necessary.
 

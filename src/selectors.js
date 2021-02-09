@@ -14,6 +14,7 @@ const BEST_BUY = {
     },
     CSS: {
         PLACE_YOUR_ORDER: "button[data-track='Place your Order - Contact Card']",
+        WAIT_BUTTON: 'button[aria-describedby="add-to-cart-wait-overlay"]',
     }
 };
 
